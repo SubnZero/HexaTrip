@@ -45,6 +45,7 @@ public class Main {
 				
 			case GAME:
 				Game.logic(delta);
+				Game.input();
 				Game.draw();
 				break;
 				
