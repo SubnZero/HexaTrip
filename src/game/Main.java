@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.Display;
 
+import entities.Hexagon;
+
 
 /**
  * H e x a T r i p
@@ -21,6 +23,7 @@ public class Main {
 	}
 	
 	private GameState State = GameState.GAME;	// TODO: Start at INTRO
+	public static Hexagon Test;
 	
 	public Main() {
 		Boot.setUpDisplay();

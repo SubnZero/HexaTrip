@@ -2,9 +2,7 @@ package game;
 
 import static org.lwjgl.opengl.GL11.*;
 
-
 import org.lwjgl.input.Keyboard;
-
 // GAMESTATE: GAME
 
 public class Game {
@@ -16,10 +14,14 @@ public class Game {
 	}
 	
 	static void input() {
-		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			translate_x -= speed;
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-			translate_x += speed;
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {			// TODO: Level width limitation
+				translate_x -= speed;
+		} 
+		else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {					
+			if(translate_x + speed > 0)
+				translate_x = 0;
+			else
+				translate_x += speed;
 		}
 		
 		while(Keyboard.next()) {
@@ -35,12 +37,14 @@ public class Game {
 	static void draw() {
 		glTranslatef(translate_x, 0, 0);
 		
-		glBegin(GL_QUADS);
+		Main.Test.draw();
+		
+		/*glBegin(GL_QUADS);
 		glVertex2i(400, 400); // Upper-left
 		glVertex2i(450, 400); // Upper-right
 		glVertex2i(450, 450); // Bottom-right
 		glVertex2i(400, 450); // Bottom-left
-		glEnd();
+		glEnd();*/
 	}
 	
 }
