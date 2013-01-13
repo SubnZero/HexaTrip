@@ -10,5 +10,18 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jars/slick-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/jaxen-1.1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/jdom-2.0.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/jdom-2.0.4-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/xml-apis.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Jason/Documents/GitHub/HexaTrip/lib/jars/TWL.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://twl.l33tlabs.org/dist/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

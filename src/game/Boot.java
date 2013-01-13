@@ -1,6 +1,7 @@
 package game;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 
 import org.lwjgl.*;
 import org.lwjgl.opengl.Display;
@@ -15,7 +16,6 @@ public class Boot {
 	private static final int[] WINDOW_DIMENSION = { 640, 480 };
 	private static final String WINDOW_TITLE = ". H e x a T r i p .";
 	private static long lastFrame;
-	
 	
 	static void setUpDisplay() {
 		try {
@@ -32,6 +32,7 @@ public class Boot {
 		glLoadIdentity();
 		glOrtho(0, WINDOW_DIMENSION[0], WINDOW_DIMENSION[1], 0, -1, 1);
 		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_RECTANGLE_ARB);
 	}
 	
 	static void setUpAGL() {
