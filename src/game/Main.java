@@ -23,19 +23,19 @@ public class Main {
 	}
 	
 	private GameState State = GameState.GAME;	// TODO: Start at INTRO
-	public static Hexagon Test;
+	public static Hexagon[] HexArray = new Hexagon[32];
 	
 	public Main() {
 		Boot.setUpDisplay();
 		Boot.setUpOGL();
 		Boot.setUpAGL();
 		Boot.setUpEntities();
+		Boot.setUpLevel();
 		Boot.setUpTimer();
 		
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT);
 			double delta = Boot.getDelta();
-			// Drawing
 			
 			glPushMatrix();
 			

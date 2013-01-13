@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.input.Keyboard;
 // GAMESTATE: GAME
 
+import entities.Hexagon;
+
 public class Game {
 	private static float translate_x = 0f;
 	private static float speed = 2.5f;
@@ -37,14 +39,10 @@ public class Game {
 	static void draw() {
 		glTranslatef(translate_x, 0, 0);
 		
-		Main.Test.draw();
-		
-		/*glBegin(GL_QUADS);
-		glVertex2i(400, 400); // Upper-left
-		glVertex2i(450, 400); // Upper-right
-		glVertex2i(450, 450); // Bottom-right
-		glVertex2i(400, 450); // Bottom-left
-		glEnd();*/
+		for(Hexagon hex : Main.HexArray) {
+			if(hex != null)
+				hex.draw();
+		}
 	}
 	
 }

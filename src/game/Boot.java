@@ -40,7 +40,13 @@ public class Boot {
 	
 	static void setUpEntities() {
 		// TODO: Init Entities Code
-		Main.Test = new AbstractHexagon(200, WINDOW_DIMENSION[1] - 50, 150, 75, HexagonType.HEX_RAMP);
+		Main.HexArray[0] = new AbstractHexagon(200, WINDOW_DIMENSION[1] - 50, 150, 75, HexagonType.HEX_DEFAULT);
+	}
+	
+	static void setUpLevel() {
+		for( Hexagon hex : Main.HexArray) {
+			hex = null;
+		}
 	}
 	
 	static long getTime() {

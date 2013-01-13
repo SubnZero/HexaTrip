@@ -21,11 +21,11 @@ public class AbstractHexagon implements Hexagon {
 		switch(this.type) {
 		case HEX_DEFAULT:
 			glVertex2d(this.x, this.y);
-			glVertex2d(this.x + 50, this.y + 0.5 * this.height);
-			glVertex2d(this.x + this.width - 50, this.y + 0.5 * this.height);
+			glVertex2d(this.x + 30, this.y + 0.5 * this.height);
+			glVertex2d(this.x + this.width - 30, this.y + 0.5 * this.height);
 			glVertex2d(this.x + this.width, this.y);
-			glVertex2d(this.x + this.width - 50, this.y - 0.5 * this.height);
-			glVertex2d(this.x + 50, this.y - 0.5 * this.height);
+			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x + 30, this.y - 0.5 * this.height);
 			break;
 			
 		case HEX_RAMP:
@@ -41,10 +41,7 @@ public class AbstractHexagon implements Hexagon {
 	}
 
 	@Override
-	public void update(double delta) {
-		// TODO Auto-generated method stub
-
-	}
+	public void update(double delta) {}
 
 	@Override
 	public void setLocation(double x, double y) {
