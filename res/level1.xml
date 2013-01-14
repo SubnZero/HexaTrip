@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HexaTripLevel title="Test Level" author="Jason Schuehlein" version="1.0">
+  <levelproperties height="480" width="640" hexagons="2" checkpoints="0"/>
+  <hexagon x="50" y="100" w="150" h="100" type="DEFAULT"/> 
+  <hexagon x="300" y="100" w="200" h="100" type="RAMP"/> 
+</HexaTripLevel>

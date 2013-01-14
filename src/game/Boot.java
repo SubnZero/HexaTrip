@@ -29,9 +29,9 @@ public class Boot {
 	static void setUpOGL() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, WINDOW_DIMENSION[0], WINDOW_DIMENSION[1], 0, -1, 1);
+		glOrtho(0, WINDOW_DIMENSION[0], 0, WINDOW_DIMENSION[1], -1, 1);  //just a mark
 		glMatrixMode(GL_MODELVIEW);
-		glEnable(GL_TEXTURE_RECTANGLE_ARB);
+		glEnable(GL_TEXTURE_RECTANGLE_ARB);	// TODO: Add Spritesheet
 	}
 	
 	static void setUpAGL() {
@@ -43,7 +43,8 @@ public class Boot {
 	}
 	
 	static void setUpLevel() {
-		Game.level = new AbstractLevel("res/level1.xml");	//TODO: loadLevel in MainMenu
+		Game.level = new AbstractLevel("res/level1.xml");	// TODO: loadLevel in MainMenu
+		Game.level.load();
 	}
 	
 	static long getTime() {

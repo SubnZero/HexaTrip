@@ -14,6 +14,7 @@ public class AbstractLevel implements Level {
 	protected double width, height;
 	protected Element HexaTripLevel, LevelProperties;
 	protected Hexagon HexArray[];
+	protected Checkpoint CheckArray[];
 	
 	public AbstractLevel(String location) {
 		this.location = location;
@@ -44,20 +45,19 @@ public class AbstractLevel implements Level {
 			this.version = HexaTripLevel.getAttributeValue("version");
 			this.height = LevelProperties.getAttribute("height").getDoubleValue();
 			this.width = LevelProperties.getAttribute("width").getDoubleValue();
-			this.hexagonAmount = LevelProperties.getAttribute("hexagonAmount").getIntValue();
-			this.checkpointAmount = LevelProperties.getAttribute("checkpointAmount").getIntValue();
+			this.hexagonAmount = LevelProperties.getAttribute("hexagons").getIntValue();
+			this.checkpointAmount = LevelProperties.getAttribute("checkpoints").getIntValue();
 			this.HexArray = new Hexagon[hexagonAmount];
 			
 			for( int i = 0; i < this.hexagonAmount; i++) {
 				
 			}
 			int hexindex = 0;
+			int checkindex = 0;
 			double x_temp = 0, y_temp = 0, w_temp = 0, h_temp = 0;
 			HexagonType type_temp = null;
 			for( Element i : HexaTripLevel.getChildren()) {
 				if(i.getName() == "hexagon") {
-					x_temp = 0; y_temp = 0; w_temp = 0; h_temp = 0;
-					type_temp = null;
 					
 					x_temp = i.getAttribute("x").getDoubleValue();
 					y_temp = i.getAttribute("y").getDoubleValue();
@@ -83,6 +83,18 @@ public class AbstractLevel implements Level {
 						this.HexArray[hexindex] = new AbstractHexagon(x_temp, y_temp, w_temp, h_temp, type_temp);
 					
 					hexindex++;
+					x_temp = 0; y_temp = 0; w_temp = 0; h_temp = 0;
+					type_temp = null;
+				} else if (i.getName() == "checkpoint") {
+					
+					x_temp = i.getAttribute("x").getDoubleValue();
+					y_temp = i.getAttribute("y").getDoubleValue();
+					
+					if (x_temp != 0 && y_temp != 0)
+						this.CheckArray[checkindex] = new AbstractCheckpoint(x_temp, y_temp);
+					
+					checkindex++;
+					x_temp = 0; y_temp = 0;
 				}
 			}
 			

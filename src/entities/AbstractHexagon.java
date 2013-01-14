@@ -21,20 +21,20 @@ public class AbstractHexagon implements Hexagon {
 		switch(this.type) {
 		case HEX_DEFAULT:
 			glVertex2d(this.x, this.y);
-			glVertex2d(this.x + 30, this.y + 0.5 * this.height);
-			glVertex2d(this.x + this.width - 30, this.y + 0.5 * this.height);
-			glVertex2d(this.x + this.width, this.y);
-			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
 			glVertex2d(this.x + 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x + this.width, this.y);
+			glVertex2d(this.x + this.width - 30, this.y + 0.5 * this.height);
+			glVertex2d(this.x + 30, this.y + 0.5 * this.height);
 			break;
 			
 		case HEX_RAMP:
-			glVertex2d(this.x, this.y + 0.25 * this.height);
-			glVertex2d(this.x + 30, this.y + 0.5 * this.height);
-			glVertex2d(this.x + this.width - 30, this.y + 0.5 * this.height);
-			glVertex2d(this.x + this.width, this.y - 0.25 * this.height);
-			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x, this.y - 0.25 * this.height);
 			glVertex2d(this.x + 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
+			glVertex2d(this.x + this.width, this.y + 0.25 * this.height);
+			glVertex2d(this.x + this.width - 30, this.y + 0.5 * this.height);
+			glVertex2d(this.x + 30, this.y + 0.5 * this.height);
 		case HEX_NONE:
 			break;
 		default:

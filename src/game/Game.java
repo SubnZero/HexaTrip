@@ -41,7 +41,7 @@ public class Game {
 	static void draw() {
 		glTranslatef(translate_x, 0, 0);
 		
-		Game.level.draw();
+		level.draw();
 	}
 	
 }
