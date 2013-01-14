@@ -11,7 +11,6 @@ import org.jdom2.input.SAXBuilder;
 public class AbstractLevel implements Level {
 	protected String location, title, author, version;
 	protected int hexagonAmount, checkpointAmount;
-	protected double width, height;
 	protected Element HexaTripLevel, LevelProperties;
 	protected Hexagon HexArray[];
 	protected Checkpoint CheckArray[];
@@ -43,11 +42,14 @@ public class AbstractLevel implements Level {
 			this.title = HexaTripLevel.getAttributeValue("title");
 			this.author = HexaTripLevel.getAttributeValue("author");
 			this.version = HexaTripLevel.getAttributeValue("version");
-			this.height = LevelProperties.getAttribute("height").getDoubleValue();
-			this.width = LevelProperties.getAttribute("width").getDoubleValue();
 			this.hexagonAmount = LevelProperties.getAttribute("hexagons").getIntValue();
 			this.checkpointAmount = LevelProperties.getAttribute("checkpoints").getIntValue();
+			if(this.checkpointAmount < 2) {
+				System.err.println("ERROR! You need at least 2 checkpoints (start and finish)!");
+				System.exit(1);
+			}
 			this.HexArray = new Hexagon[hexagonAmount];
+			this.CheckArray = new Checkpoint[checkpointAmount];
 			
 			for( int i = 0; i < this.hexagonAmount; i++) {
 				
@@ -57,7 +59,7 @@ public class AbstractLevel implements Level {
 			double x_temp = 0, y_temp = 0, w_temp = 0, h_temp = 0;
 			HexagonType type_temp = null;
 			for( Element i : HexaTripLevel.getChildren()) {
-				if(i.getName() == "hexagon") {
+				if(i.getName() == "hexagon" && (hexindex+1) <= this.hexagonAmount) {
 					
 					x_temp = i.getAttribute("x").getDoubleValue();
 					y_temp = i.getAttribute("y").getDoubleValue();
@@ -75,7 +77,7 @@ public class AbstractLevel implements Level {
 							type_temp = HexagonType.HEX_RAMP;
 							break;
 						default:
-							System.err.println("invalid HexagonType in XML File at Hexagon " + hexindex + "!");
+							System.err.println("invalid HexagonType in XML File at Hexagon " + (hexindex+1) + "!");
 							break;
 					}
 					
@@ -85,7 +87,7 @@ public class AbstractLevel implements Level {
 					hexindex++;
 					x_temp = 0; y_temp = 0; w_temp = 0; h_temp = 0;
 					type_temp = null;
-				} else if (i.getName() == "checkpoint") {
+				} else if (i.getName() == "checkpoint" && (checkindex+1) <= this.checkpointAmount) {
 					
 					x_temp = i.getAttribute("x").getDoubleValue();
 					y_temp = i.getAttribute("y").getDoubleValue();
@@ -97,7 +99,11 @@ public class AbstractLevel implements Level {
 					x_temp = 0; y_temp = 0;
 				}
 			}
-			
+			if(hexindex+1 < this.hexagonAmount)
+				System.err.println("WARNING! Only " + (hexindex+1) + " of " + this.hexagonAmount + " Hexagons are declared!");
+			if(checkindex+1 < this.checkpointAmount)
+				System.err.println("WARNING! Only " + (checkindex+1) + " of " + this.checkpointAmount + " Checkpoints are declared!");
+				
 		} catch (JDOMException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -122,16 +128,6 @@ public class AbstractLevel implements Level {
 	}
 
 	@Override
-	public double getWidth() {
-		return this.width;
-	}
-
-	@Override
-	public double getHeight() {
-		return this.width;
-	}
-
-	@Override
 	public int getHexagonAmount() {
 		return this.hexagonAmount;
 	}
@@ -144,6 +140,13 @@ public class AbstractLevel implements Level {
 	@Override
 	public double getGravity() {
 		return 9.81d;
+	}
+	
+	// TODO: Player Entity and Chekpoint flag height needed
+	@Override
+	public boolean isFinish(Player player) {
+		if( player.getX() >= this.CheckArray[this.checkpointAmount-1].getX() && player.getY() )
+		return false;
 	}
 
 }

@@ -9,7 +9,7 @@ import org.lwjgl.opengl.Display;
  * ===============
  * 
  * @author Jason Schühlein
- * @version 0.0 13/1/2013
+ * @version 0.1 14/1/2013
  *
  */
 

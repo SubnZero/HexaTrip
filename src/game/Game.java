@@ -12,13 +12,15 @@ public class Game {
 	private static float translate_x = 0f;
 	private static float speed = 2.5f;
 	static Level level;
+	static Player PLAYER1;
 	
 	static void logic(double delta) {
 		
 	}
 	
 	static void input() {
-		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {			// TODO: Level width limitation
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			if(!level.isFinish(PLAYER1))				// TODO: Player Entity needed
 				translate_x -= speed;
 		} 
 		else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {					

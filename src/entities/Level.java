@@ -8,10 +8,8 @@ public interface Level {
 	public String getAuthor();
 	public String getVersion();
 	
-	public double getWidth();
-	public double getHeight();
-	
 	public int getHexagonAmount();
 	public int getCheckpointAmount();
 	public double getGravity();
+	public boolean isFinish();
 }
