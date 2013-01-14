@@ -7,15 +7,14 @@ import org.lwjgl.*;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import entities.AbstractHexagon;
-import entities.Hexagon;
-import entities.HexagonType;
+import entities.AbstractLevel;
 
 public class Boot {
 
 	private static final int[] WINDOW_DIMENSION = { 640, 480 };
 	private static final String WINDOW_TITLE = ". H e x a T r i p .";
 	private static long lastFrame;
+	
 	
 	static void setUpDisplay() {
 		try {
@@ -41,13 +40,10 @@ public class Boot {
 	
 	static void setUpEntities() {
 		// TODO: Init Entities Code
-		Main.HexArray[0] = new AbstractHexagon(200, WINDOW_DIMENSION[1] - 50, 150, 75, HexagonType.HEX_DEFAULT);
 	}
 	
 	static void setUpLevel() {
-		for( Hexagon hex : Main.HexArray) {
-			hex = null;
-		}
+		Game.level = new AbstractLevel("res/level1.xml");	//TODO: loadLevel in MainMenu
 	}
 	
 	static long getTime() {

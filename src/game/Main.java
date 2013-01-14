@@ -4,9 +4,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.Display;
 
-import entities.Hexagon;
-
-
 /**
  * H e x a T r i p
  * ===============
@@ -23,14 +20,14 @@ public class Main {
 	}
 	
 	private GameState State = GameState.GAME;	// TODO: Start at INTRO
-	public static Hexagon[] HexArray = new Hexagon[32];
+	
 	
 	public Main() {
 		Boot.setUpDisplay();
 		Boot.setUpOGL();
 		Boot.setUpAGL();
 		Boot.setUpEntities();
-		Boot.setUpLevel();
+		Boot.setUpLevel(); //TODO: loadLevel in MainMenu
 		Boot.setUpTimer();
 		
 		while(!Display.isCloseRequested()) {

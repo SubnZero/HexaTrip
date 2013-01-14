@@ -35,6 +35,12 @@ public class AbstractHexagon implements Hexagon {
 			glVertex2d(this.x + this.width, this.y - 0.25 * this.height);
 			glVertex2d(this.x + this.width - 30, this.y - 0.5 * this.height);
 			glVertex2d(this.x + 30, this.y - 0.5 * this.height);
+		case HEX_NONE:
+			break;
+		default:
+			System.err.println("invalid HexagonType in AbstractHexagon.draw()");
+			System.exit(0);
+			break;
 		}
 		
 		glEnd();
