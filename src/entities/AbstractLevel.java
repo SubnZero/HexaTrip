@@ -141,12 +141,25 @@ public class AbstractLevel implements Level {
 	public double getGravity() {
 		return 9.81d;
 	}
-	
-	// TODO: Player Entity and Chekpoint flag height needed
+
 	@Override
-	public boolean isFinish(Player player) {
-		if( player.getX() >= this.CheckArray[this.checkpointAmount-1].getX() && player.getY() )
-		return false;
+	public double getXStart() {
+		return this.CheckArray[0].getX();
+	}
+
+	@Override
+	public double getYStart() {
+		return this.CheckArray[0].getY();
+	}
+
+	@Override
+	public double getXFinish() {
+		return this.CheckArray[this.checkpointAmount-1].getX();
+	}
+
+	@Override
+	public double getYFinish() {
+		return this.CheckArray[this.checkpointAmount-1].getY();
 	}
 
 }

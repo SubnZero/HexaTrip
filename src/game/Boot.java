@@ -8,6 +8,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import entities.AbstractLevel;
+import entities.AbstractPlayer;
 
 public class Boot {
 
@@ -45,6 +46,7 @@ public class Boot {
 	static void setUpLevel() {
 		Game.level = new AbstractLevel("res/level1.xml");	// TODO: loadLevel in MainMenu
 		Game.level.load();
+		Game.PLAYER1 = new AbstractPlayer("Jason", 10, 10);
 	}
 	
 	static long getTime() {

@@ -11,5 +11,9 @@ public interface Level {
 	public int getHexagonAmount();
 	public int getCheckpointAmount();
 	public double getGravity();
-	public boolean isFinish();
+	
+	public double getXStart();
+	public double getYStart();
+	public double getXFinish();
+	public double getYFinish();
 }

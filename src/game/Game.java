@@ -6,6 +6,7 @@ import org.lwjgl.input.Keyboard;
 // GAMESTATE: GAME
 
 import entities.Level;
+import entities.Player;
 
 
 public class Game {
@@ -20,8 +21,7 @@ public class Game {
 	
 	static void input() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			if(!level.isFinish(PLAYER1))				// TODO: Player Entity needed
-				translate_x -= speed;
+			translate_x -= speed;
 		} 
 		else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {					
 			if(translate_x + speed > 0)
