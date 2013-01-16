@@ -28,14 +28,12 @@ import utilities.ImagingTools;
 
 public class Boot {
 
-	private static final int[] WINDOW_DIMENSION = { 640, 480 };
-	private static final String WINDOW_TITLE = ". H e x a T r i p .";
+	public static final int[] WINDOW_DIMENSION = { 640, 480 };
+	public static final String WINDOW_TITLE = ". H e x a T r i p .";
 	private static long lastFrame;
 	private static final String SPRITESHEET_IMAGE_LOCATION = "res/spritesheet.png";
 	private static final String SPRITESHEET_XML_LOCATION = "res/spritesheet.xml";
 
-	
-	
 	static void setUpDisplay() {
 		try {
 			Display.setDisplayMode(new DisplayMode(WINDOW_DIMENSION[0], WINDOW_DIMENSION[1]));

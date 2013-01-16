@@ -33,7 +33,11 @@ public class Game {
 	
 	static void input() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-			translate_x -= speed;
+			if(((float)level.getXFinish() + 0.5 * (float) Boot.WINDOW_DIMENSION[0]) + (float) translate_x <= 0)
+				translate_x = (float) -( (float) level.getXFinish() + 0.5 * (float) Boot.WINDOW_DIMENSION[0]);
+			else
+				translate_x -= speed;
+			System.out.println(translate_x);
 		} 
 		else if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {					
 			if(translate_x + speed > 0)
