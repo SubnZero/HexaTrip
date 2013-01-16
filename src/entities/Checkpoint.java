@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *   Simple Checkpoint Entitiy
+ */
+
 public interface Checkpoint {
 	public void draw();
 	public void update( double delta );

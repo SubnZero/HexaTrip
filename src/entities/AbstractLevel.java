@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *	Level Class
+ */
+
 import java.io.File;
 import java.io.IOException;
 

@@ -9,7 +9,7 @@ import org.lwjgl.opengl.Display;
  * ===============
  * 
  * @author Jason Schühlein
- * @version INDEV 0.2 15/1/2013
+ * @version INDEV 0.3 16.1.2013
  *
  */
 
@@ -19,15 +19,16 @@ public class Main {
 		INTRO, MAIN, GAME, GAMEOVER, END;
 	}
 	
-	private GameState State = GameState.GAME;	// TODO: Start at INTRO
+	private GameState State = GameState.GAME;	//TODO Start at INTRO
 	
 	
 	public Main() {
 		Boot.setUpDisplay();
 		Boot.setUpOGL();
 		Boot.setUpAGL();
-		Boot.setUpEntities();
-		Boot.setUpLevel(); //TODO: loadLevel in MainMenu
+		Boot.setUpSpriteSheets();
+		Boot.setUpStates();
+		Boot.setUpLevel(); //TODO loadLevel in MainMenu
 		Boot.setUpTimer();
 		
 		while(!Display.isCloseRequested()) {

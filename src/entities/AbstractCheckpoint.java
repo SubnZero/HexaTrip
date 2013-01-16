@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *   Checkpoint Class
+ */
+
 public class AbstractCheckpoint implements Checkpoint {
 	protected double x, y;
 	

@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *   Level Entitiy
+ */
+
 public interface Level {
 	public void draw();
 	public void load();

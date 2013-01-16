@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *   Hexagon Class
+ */
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class AbstractHexagon implements Hexagon {

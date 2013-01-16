@@ -1,20 +1,74 @@
 package entities;
 
+/*	
+ *   Player Class
+ */
+
+import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
+import static org.lwjgl.opengl.GL11.*;
+
+import game.Game;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Map;
+
+import org.newdawn.slick.opengl.TextureLoader;
+
+
 public class AbstractPlayer implements Player {
 	protected String name;
 	protected double x , y, dx, dy;
+	protected int spritesheet;
+	
 
-	public AbstractPlayer(String name, double x, double y) {
+	public AbstractPlayer(String name, Level level, int spritesheet) {
 		this.name = name;
-		this.x = x;
-		this.y = y;
+		this.x = level.getXStart();
+		this.y = level.getYStart();
+		this.spritesheet = spritesheet;
 		this.dx = 0;
 		this.dy = 0;
+		try {
+			Game.texPlayer = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Player1.png")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void draw() {
-		// TODO Draw Player
+	public void draw(Map<String, Sprite> spriteMap) {
+		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, spritesheet);
+		
+		Sprite currentSprite = spriteMap.get("player1");
+		
+		int x = currentSprite.getX();
+        int y = currentSprite.getY();
+        int x2 = currentSprite.getX() + currentSprite.getWidth();
+        int y2 = currentSprite.getY() + currentSprite.getHeight();
+		
+		Game.texPlayer.bind();
+		
+		glBegin(GL_QUADS);
+			glTexCoord2f(x2,y2);
+			glVertex2d(this.x - 32, this.y);
+			glTexCoord2f(x,y2);
+			glVertex2d(this.x + 32 , this.y);
+			glTexCoord2f(x,y);
+			glVertex2d(this.x + 32 , this.y + 128);
+			glTexCoord2f(x2,y);
+
+			glVertex2d(this.x - 32, this.y + 128);
+		glEnd();
+		
+		
+		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
 	}
 
 	@Override
@@ -75,6 +129,11 @@ public class AbstractPlayer implements Player {
 			return true;
 		else
 			return false;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
 	}
 
 }

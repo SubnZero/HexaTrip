@@ -1,5 +1,9 @@
 package entities;
 
+/*	
+ *   Simple Hexagon Entitiy
+ */
+
 public interface Hexagon {
 	public void draw();
 	public void update( double delta );

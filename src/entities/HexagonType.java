@@ -1,9 +1,9 @@
 package entities;
 
+/*	
+ *   Hexagon Type declarations
+ */
+
 public enum HexagonType {
-	HEX_NONE(""), HEX_DEFAULT("res/default.png"), HEX_RAMP("res/ramp.png");
-	public final String location;
-	HexagonType( String location) {
-		this.location = location;
-	}
+	HEX_NONE, HEX_DEFAULT, HEX_RAMP;
 }
