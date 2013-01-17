@@ -15,12 +15,16 @@ import org.lwjgl.opengl.Display;
 
 public class Main {
 	
-	private static enum GameState {
-		INTRO, MAIN, GAME, GAMEOVER, END;
+	public static enum GameState {
+		INTRO, MAIN, GAME, END;
 	}
 	
-	private GameState State = GameState.GAME;	//TODO Start at INTRO
+	public static enum MenuState {
+		NONE, MAIN_MENU, GAME_START, GAME_PAUSED, GAME_END;
+	}
 	
+	private static GameState gState = GameState.GAME;	//TODO Start at INTRO
+	static MenuState mState = MenuState.NONE;
 	
 	public Main() {
 		Boot.setUpDisplay();
@@ -37,7 +41,7 @@ public class Main {
 			
 			glPushMatrix();
 			
-			switch(State) {
+			switch(gState) {
 			case INTRO:
 				break;
 				
@@ -45,12 +49,10 @@ public class Main {
 				break;
 				
 			case GAME:
-				Game.logic(delta);
 				Game.input();
+				Game.logic(delta);
 				Game.draw();
-				break;
-				
-			case GAMEOVER:
+				Menu.draw(mState);
 				break;
 				
 			case END:

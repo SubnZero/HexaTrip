@@ -20,4 +20,5 @@ public interface Level {
 	public double getYStart();
 	public double getXFinish();
 	public double getYFinish();
+	public double getHighestX();
 }

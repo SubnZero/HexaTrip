@@ -18,6 +18,7 @@ public class AbstractLevel implements Level {
 	protected Element HexaTripLevel, LevelProperties;
 	protected Hexagon HexArray[];
 	protected Checkpoint CheckArray[];
+	protected double highestX;
 	
 	public AbstractLevel(String location) {
 		this.location = location;
@@ -55,13 +56,11 @@ public class AbstractLevel implements Level {
 			this.HexArray = new Hexagon[hexagonAmount];
 			this.CheckArray = new Checkpoint[checkpointAmount];
 			
-			for( int i = 0; i < this.hexagonAmount; i++) {
-				
-			}
 			int hexindex = 0;
 			int checkindex = 0;
 			double x_temp = 0, y_temp = 0, w_temp = 0, h_temp = 0;
 			HexagonType type_temp = null;
+			
 			for( Element i : HexaTripLevel.getChildren()) {
 				if(i.getName() == "hexagon" && (hexindex+1) <= this.hexagonAmount) {
 					
@@ -88,6 +87,8 @@ public class AbstractLevel implements Level {
 					if (x_temp != 0 && y_temp != 0 && w_temp != 0 && h_temp != 0 && type_temp != null)
 						this.HexArray[hexindex] = new AbstractHexagon(x_temp, y_temp, w_temp, h_temp, type_temp);
 					
+					if(x_temp + w_temp > highestX)
+						highestX = x_temp + w_temp;
 					hexindex++;
 					x_temp = 0; y_temp = 0; w_temp = 0; h_temp = 0;
 					type_temp = null;
@@ -98,7 +99,9 @@ public class AbstractLevel implements Level {
 					
 					if (x_temp != 0 && y_temp != 0)
 						this.CheckArray[checkindex] = new AbstractCheckpoint(x_temp, y_temp);
-					
+							
+					if(x_temp > highestX)
+						highestX = x_temp;
 					checkindex++;
 					x_temp = 0; y_temp = 0;
 				}
@@ -164,6 +167,11 @@ public class AbstractLevel implements Level {
 	@Override
 	public double getYFinish() {
 		return this.CheckArray[this.checkpointAmount-1].getY();
+	}
+
+	@Override
+	public double getHighestX() {
+		return this.highestX;
 	}
 
 }
