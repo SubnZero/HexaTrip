@@ -6,8 +6,7 @@ package entities;
 
 import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 import static org.lwjgl.opengl.GL11.*;
-
-import game.Game;
+import static game.Boot.cleanUp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,13 +14,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 
+import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
-
 
 public class AbstractPlayer implements Player {
 	protected String name;
 	protected double x , y, dx, dy;
 	protected int spritesheet;
+	protected Texture texPlayer;
 	
 
 	public AbstractPlayer(String name, Level level, int spritesheet) {
@@ -31,14 +31,15 @@ public class AbstractPlayer implements Player {
 		this.spritesheet = spritesheet;
 		this.dx = 0;
 		this.dy = 0;
+		
 		try {
-			Game.texPlayer = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Player1.png")));
+			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Player1.png")));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			cleanUp();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			cleanUp();
 		}
 	}
 
@@ -53,7 +54,7 @@ public class AbstractPlayer implements Player {
         int x2 = currentSprite.getX() + currentSprite.getWidth();
         int y2 = currentSprite.getY() + currentSprite.getHeight();
 		
-		Game.texPlayer.bind();
+		texPlayer.bind();
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(x2,y2);

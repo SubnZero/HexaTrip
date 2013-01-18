@@ -5,8 +5,6 @@ import static game.Boot.WINDOW_DIMENSION;
 
 import game.Main.MenuState;
 
-import org.lwjgl.input.Keyboard;
-
 public class Menu {
 	
 	public static void draw(MenuState mState) {

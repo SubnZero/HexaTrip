@@ -4,6 +4,8 @@ package entities;
  *	Level Class
  */
 
+import static game.Boot.cleanUp;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -113,8 +115,10 @@ public class AbstractLevel implements Level {
 				
 		} catch (JDOMException e) {
 			e.printStackTrace();
+			cleanUp();
 		} catch (IOException e) {
 			e.printStackTrace();
+			cleanUp();
 		}
 		
 	}

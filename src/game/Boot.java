@@ -5,10 +5,14 @@ package game;
  *   Initializing Display, OGL, AGL, Timer
  */
 
+import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -17,8 +21,10 @@ import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.lwjgl.*;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.WaveData;
 
 import entities.AbstractLevel;
 import entities.AbstractPlayer;
@@ -27,13 +33,14 @@ import utilities.ImagingTools;
 
 
 public class Boot {
-
-	public static final int[] WINDOW_DIMENSION = { 640, 480 };
-	public static final String WINDOW_TITLE = ". H e x a T r i p .";
-	private static long lastFrame;
+	private static final String WINDOW_TITLE = ". H e x a T r i p .";
 	private static final String SPRITESHEET_IMAGE_LOCATION = "res/spritesheet.png";
 	private static final String SPRITESHEET_XML_LOCATION = "res/spritesheet.xml";
-
+	static final int[] WINDOW_DIMENSION = { 640, 480 };
+	
+	private static long lastFrame;
+	static int albGameStart, alsGameStart;
+	
 	static void setUpDisplay() {
 		try {
 			Display.setDisplayMode(new DisplayMode(WINDOW_DIMENSION[0], WINDOW_DIMENSION[1]));
@@ -41,18 +48,36 @@ public class Boot {
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
+			cleanUp();
 		}
 	}
 	
 	static void setUpOGL() {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, WINDOW_DIMENSION[0], 0, WINDOW_DIMENSION[1], -1, 1);  //just a mark
+		glOrtho(0, WINDOW_DIMENSION[0], 0, WINDOW_DIMENSION[1], -1, 1);
 		glMatrixMode(GL_MODELVIEW);
 	}
 	
 	static void setUpAGL() {
-		// TODO: Init AGL Code
+		try {
+			AL.create();
+			WaveData data;
+			data = WaveData.create(new BufferedInputStream(new FileInputStream("res/Andrey_Avkhimovich_-_Press_Start.wav")));
+			albGameStart = alGenBuffers();
+			alBufferData(albGameStart, data.format, data.data, data.samplerate);
+			data.dispose();
+			alsGameStart = alGenSources();
+			alSourcei(alsGameStart, AL_BUFFER, albGameStart);
+			alSourcei(alsGameStart, AL_LOOPING, AL_TRUE);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			cleanUp();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+			cleanUp();
+		}
+		alSourcePlay(alsGameStart);
 	}
 	
 	static void setUpLevel() {
@@ -75,9 +100,12 @@ public class Boot {
 		return delta;
 	}
 	
-	static void cleanUp() {
+	public static void cleanUp() {
 		glDeleteTextures(Game.spritesheet);
-		Display.destroy();
+		alDeleteBuffers(albGameStart);
+        alDeleteSources(alsGameStart);
+        Display.destroy();
+        AL.destroy();
 	}
 	
 	 static void setUpSpriteSheets() {

@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.opengl.Texture;
 
 import entities.Level;
 import entities.Player;
@@ -21,7 +20,6 @@ import entities.Sprite;
 public class Game {
 	private static float translate_x = 0f;
 	private static float speed = 2.5f;
-	public static Texture texPlayer;
 	static int spritesheet;
 	static Map<String, Sprite> spriteMap = new HashMap<String, Sprite>();
 	static Sprite currentSprite;
@@ -29,7 +27,7 @@ public class Game {
 	static Player PLAYER1;
 	
 	static void logic(double delta) {
-		
+		// TODO put Game Logic Stuff here
 	}
 	
 	static void input() {
