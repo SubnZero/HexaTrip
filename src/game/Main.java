@@ -49,7 +49,7 @@ public class Main {
 				break;
 				
 			case GAME:
-				Game.input();
+				Game.input(delta);
 				Game.logic(delta);
 				Game.draw();
 				Menu.draw(mState);
@@ -64,8 +64,7 @@ public class Main {
 			Display.update();
 			Display.sync(60);
 		}
-		Boot.cleanUp();
-		System.exit(0);
+		Boot.cleanUp(0);
 	}
 
 	public static void main(String[] args) {

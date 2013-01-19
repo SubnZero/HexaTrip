@@ -8,6 +8,7 @@ package game;
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
+import static game.Game.*;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -36,7 +37,7 @@ public class Boot {
 	private static final String WINDOW_TITLE = ". H e x a T r i p .";
 	private static final String SPRITESHEET_IMAGE_LOCATION = "res/spritesheet.png";
 	private static final String SPRITESHEET_XML_LOCATION = "res/spritesheet.xml";
-	static final int[] WINDOW_DIMENSION = { 640, 480 };
+	public static final int[] WINDOW_DIMENSION = { 640, 480 };
 	
 	private static long lastFrame;
 	static int albGameStart, alsGameStart;
@@ -48,7 +49,7 @@ public class Boot {
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		}
 	}
 	
@@ -71,19 +72,20 @@ public class Boot {
 			alSourcei(alsGameStart, AL_BUFFER, albGameStart);
 			alSourcei(alsGameStart, AL_LOOPING, AL_TRUE);
 		} catch (FileNotFoundException e) {
+			System.err.println("ERROR! Andrey_Avkhimovich_-_Press_Start.wav NOT FOUND");
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		} catch (LWJGLException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		}
-		alSourcePlay(alsGameStart);
+		// alSourcePlay(alsGameStart);		// TODO Move AL Play
 	}
 	
 	static void setUpLevel() {
-		Game.level = new AbstractLevel("res/level1.xml");	// TODO: loadLevel in MainMenu
-		Game.level.load();
-		Game.PLAYER1 = new AbstractPlayer("Jason", Game.level, Game.spritesheet);
+		level = new AbstractLevel("res/level1.xml");	// TODO: loadLevel in MainMenu
+		level.load();
+		PLAYER1 = new AbstractPlayer("Jason", Game.level, Game.spritesheet);
 	}
 	
 	static long getTime() {
@@ -100,16 +102,17 @@ public class Boot {
 		return delta;
 	}
 	
-	public static void cleanUp() {
+	public static void cleanUp(int crash) {
 		glDeleteTextures(Game.spritesheet);
 		alDeleteBuffers(albGameStart);
         alDeleteSources(alsGameStart);
         Display.destroy();
         AL.destroy();
+        System.exit(crash);
 	}
 	
 	 static void setUpSpriteSheets() {
-		 Game.spritesheet = ImagingTools.glLoadLinearPNG(SPRITESHEET_IMAGE_LOCATION);
+		 spritesheet = ImagingTools.glLoadLinearPNG(SPRITESHEET_IMAGE_LOCATION);
 		 SAXBuilder builder = new SAXBuilder();
 		 try {
 			 Document document = builder.build(new File(SPRITESHEET_XML_LOCATION));
@@ -122,15 +125,15 @@ public class Boot {
 				 int w = spriteElement.getAttribute("w").getIntValue();
 				 int h = spriteElement.getAttribute("h").getIntValue();
 				 Sprite sprite = new Sprite(name, x, y, w, h);
-				 Game.spriteMap.put(sprite.getName(), sprite);
+				 spriteMap.put(sprite.getName(), sprite);
 			 }
 		 } catch (JDOMException e) {
 			 e.printStackTrace();
-			 cleanUp();
+			 cleanUp(1);
 		 } catch (IOException e) {
-			 System.err.println("ERROR! DATA NOT FOUND");
+			 System.err.println("ERROR! SPRITESHEET FILE NOT FOUND");
 			 e.printStackTrace();
-			 cleanUp();
+			 cleanUp(1);
 		 }
 	 }
 	 
@@ -140,7 +143,7 @@ public class Boot {
 			glEnable(GL_BLEND);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glCullFace(GL_BACK);
-			Game.currentSprite = Game.spriteMap.get("air");
+			currentSprite = spriteMap.get("air");
 	 }
 
 }

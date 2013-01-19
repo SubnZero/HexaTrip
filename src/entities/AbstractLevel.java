@@ -115,10 +115,10 @@ public class AbstractLevel implements Level {
 				
 		} catch (JDOMException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		} catch (IOException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		}
 		
 	}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <HexaTripLevel title="Test Level" author="Jason Schuehlein" version="1.0">
   <levelproperties hexagons="2" checkpoints="2"/>
-  <hexagon x="150" y="100" w="150" h="100" type="DEFAULT"/> 
-  <hexagon x="500" y="100" w="200" h="100" type="RAMP"/> 
+  <hexagon x="150" y="100" w="100" h="50" type="DEFAULT"/> 
+  <hexagon x="500" y="100" w="150" h="50" type="RAMP"/> 
   <checkpoint x="100" y="1"/>
-  <checkpoint x="200" y="1"/>
+  <checkpoint x="1000" y="1"/>
 </HexaTripLevel>

@@ -8,6 +8,8 @@ import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 import static org.lwjgl.opengl.GL11.*;
 import static game.Boot.cleanUp;
 
+import game.Boot;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +24,7 @@ public class AbstractPlayer implements Player {
 	protected double x , y, dx, dy;
 	protected int spritesheet;
 	protected Texture texPlayer;
+	protected boolean inCenter;
 	
 
 	public AbstractPlayer(String name, Level level, int spritesheet) {
@@ -36,15 +39,16 @@ public class AbstractPlayer implements Player {
 			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Player1.png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		} catch (IOException e) {
 			e.printStackTrace();
-			cleanUp();
+			cleanUp(1);
 		}
 	}
 
 	@Override
 	public void draw(Map<String, Sprite> spriteMap) {
+		
 		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, spritesheet);
 		
 		Sprite currentSprite = spriteMap.get("player1");
@@ -56,7 +60,26 @@ public class AbstractPlayer implements Player {
 		
 		texPlayer.bind();
 		
-		glBegin(GL_QUADS);
+		if (inCenter) {
+			glPopMatrix();
+			glMatrixMode(GL_PROJECTION);
+			
+			glBegin(GL_QUADS);
+			glTexCoord2f(x2,y2);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y );
+			glTexCoord2f(x,y2);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y);
+			glTexCoord2f(x,y);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y + 128);
+			glTexCoord2f(x2,y);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y + 128);
+			glEnd();
+			
+			glMatrixMode(GL_MODELVIEW);
+			glPushMatrix();
+		} 
+		else if (!inCenter){
+			glBegin(GL_QUADS);
 			glTexCoord2f(x2,y2);
 			glVertex2d(this.x - 32, this.y);
 			glTexCoord2f(x,y2);
@@ -64,18 +87,11 @@ public class AbstractPlayer implements Player {
 			glTexCoord2f(x,y);
 			glVertex2d(this.x + 32 , this.y + 128);
 			glTexCoord2f(x2,y);
-
 			glVertex2d(this.x - 32, this.y + 128);
-		glEnd();
-		
-		
+			glEnd();
+		}
 		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
-	}
-
-	@Override
-	public void update(double delta) {
-		this.x += this.dx * delta;
-		this.y += this.dy * delta;
+		
 	}
 
 	@Override
@@ -90,18 +106,8 @@ public class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public void setDX(double dx) {
-		this.dx = dx;
-	}
-
-	@Override
 	public void setY(double y) {
 		this.y = y;
-	}
-
-	@Override
-	public void setDY(double dy) {
-		this.dy = dy;
 	}
 
 	@Override
@@ -110,19 +116,10 @@ public class AbstractPlayer implements Player {
 	}
 
 	@Override
-	public double getDX() {
-		return this.dx;
-	}
-
-	@Override
 	public double getY() {
 		return this.y;
 	}
 
-	@Override
-	public double getDY() {
-		return this.dy;
-	}
 
 	@Override
 	public boolean hasFinished(Level level) {
@@ -135,6 +132,16 @@ public class AbstractPlayer implements Player {
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public void setCenter(boolean inCenter) {
+		this.inCenter = inCenter;
+	}
+
+	@Override
+	public boolean inCenter() {
+		return inCenter;
 	}
 
 }
