@@ -23,7 +23,6 @@ public class AbstractPlayer implements Player {
 	protected String name;
 	protected double x , y, dx, dy;
 	protected int spritesheet;
-	protected Texture texPlayer;
 	protected boolean inCenter;
 	
 
@@ -34,16 +33,6 @@ public class AbstractPlayer implements Player {
 		this.spritesheet = spritesheet;
 		this.dx = 0;
 		this.dy = 0;
-		
-		try {
-			texPlayer = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Player1.png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			cleanUp(1);
-		} catch (IOException e) {
-			e.printStackTrace();
-			cleanUp(1);
-		}
 	}
 
 	@Override
@@ -51,14 +40,12 @@ public class AbstractPlayer implements Player {
 		
 		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, spritesheet);
 		
-		Sprite currentSprite = spriteMap.get("player1");
+		Sprite currentSprite = spriteMap.get("character");
 		
 		int x = currentSprite.getX();
         int y = currentSprite.getY();
         int x2 = currentSprite.getX() + currentSprite.getWidth();
         int y2 = currentSprite.getY() + currentSprite.getHeight();
-		
-		texPlayer.bind();
 		
 		if (inCenter) {
 			glPopMatrix();
@@ -70,9 +57,9 @@ public class AbstractPlayer implements Player {
 			glTexCoord2f(x,y2);
 			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y);
 			glTexCoord2f(x,y);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y + 128);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y + 64);
 			glTexCoord2f(x2,y);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y + 128);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y + 64);
 			glEnd();
 			
 			glMatrixMode(GL_MODELVIEW);
@@ -85,9 +72,9 @@ public class AbstractPlayer implements Player {
 			glTexCoord2f(x,y2);
 			glVertex2d(this.x + 32 , this.y);
 			glTexCoord2f(x,y);
-			glVertex2d(this.x + 32 , this.y + 128);
+			glVertex2d(this.x + 32 , this.y + 64);
 			glTexCoord2f(x2,y);
-			glVertex2d(this.x - 32, this.y + 128);
+			glVertex2d(this.x - 32, this.y + 64);
 			glEnd();
 		}
 		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);

@@ -35,8 +35,8 @@ import utilities.ImagingTools;
 
 public class Boot {
 	private static final String WINDOW_TITLE = ". H e x a T r i p .";
-	private static final String SPRITESHEET_IMAGE_LOCATION = "res/spritesheet.png";
-	private static final String SPRITESHEET_XML_LOCATION = "res/spritesheet.xml";
+	private static final String SPRITESHEET_IMAGE_LOCATION = "res/images/spritesheet.png";
+	private static final String SPRITESHEET_XML_LOCATION = "res/images/spritesheet.xml";
 	public static final int[] WINDOW_DIMENSION = { 640, 480 };
 	
 	private static long lastFrame;
@@ -64,7 +64,7 @@ public class Boot {
 		try {
 			AL.create();
 			WaveData data;
-			data = WaveData.create(new BufferedInputStream(new FileInputStream("res/Andrey_Avkhimovich_-_Press_Start.wav")));
+			data = WaveData.create(new BufferedInputStream(new FileInputStream("res/sound/Andrey_Avkhimovich_-_Press_Start.wav")));
 			albGameStart = alGenBuffers();
 			alBufferData(albGameStart, data.format, data.data, data.samplerate);
 			data.dispose();
@@ -83,7 +83,7 @@ public class Boot {
 	}
 	
 	static void setUpLevel() {
-		level = new AbstractLevel("res/level1.xml");	// TODO: loadLevel in MainMenu
+		level = new AbstractLevel("res/levels/level1.xml");	// TODO: loadLevel in MainMenu
 		level.load();
 		PLAYER1 = new AbstractPlayer("Jason", Game.level, Game.spritesheet);
 	}
