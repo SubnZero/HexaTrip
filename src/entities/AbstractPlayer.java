@@ -6,18 +6,11 @@ package entities;
 
 import static org.lwjgl.opengl.ARBTextureRectangle.GL_TEXTURE_RECTANGLE_ARB;
 import static org.lwjgl.opengl.GL11.*;
-import static game.Boot.cleanUp;
 
 import game.Boot;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Map;
 
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 
 public class AbstractPlayer implements Player {
 	protected String name;
@@ -53,13 +46,13 @@ public class AbstractPlayer implements Player {
 			
 			glBegin(GL_QUADS);
 			glTexCoord2f(x2,y2);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y );
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 64, this.y );
 			glTexCoord2f(x,y2);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 64 , this.y);
 			glTexCoord2f(x,y);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 32 , this.y + 64);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] + 64 , this.y + 128);
 			glTexCoord2f(x2,y);
-			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 32, this.y + 64);
+			glVertex2d(0.5 *Boot.WINDOW_DIMENSION[0] - 64, this.y + 128);
 			glEnd();
 			
 			glMatrixMode(GL_MODELVIEW);
@@ -68,13 +61,13 @@ public class AbstractPlayer implements Player {
 		else if (!inCenter){
 			glBegin(GL_QUADS);
 			glTexCoord2f(x2,y2);
-			glVertex2d(this.x - 32, this.y);
+			glVertex2d(this.x - 64, this.y);
 			glTexCoord2f(x,y2);
-			glVertex2d(this.x + 32 , this.y);
+			glVertex2d(this.x + 64 , this.y);
 			glTexCoord2f(x,y);
-			glVertex2d(this.x + 32 , this.y + 64);
+			glVertex2d(this.x + 64 , this.y + 128);
 			glTexCoord2f(x2,y);
-			glVertex2d(this.x - 32, this.y + 64);
+			glVertex2d(this.x - 64, this.y + 128);
 			glEnd();
 		}
 		glBindTexture(GL_TEXTURE_RECTANGLE_ARB, 0);
